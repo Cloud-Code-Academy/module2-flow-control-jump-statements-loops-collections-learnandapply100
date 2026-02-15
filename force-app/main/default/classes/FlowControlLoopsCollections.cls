@@ -29,7 +29,7 @@ public with sharing class FlowControlLoopsCollections {
      * @return "Hello World!" if x greater than y, otherwise return null.
      */
     public static String helloWorld(Integer x, Integer y) {
-        if(x == null || y == null || x < y || x == y){
+        if(x == null || y == null || x <= y){
             return null;
         }
         return 'Hello World!';
@@ -45,7 +45,10 @@ public with sharing class FlowControlLoopsCollections {
      * @return true if the person is eligible to vote, false otherwise.
      */
     public static Boolean votingEligibility(Integer age) {
-        return (age == null || age < 18) ? false : true;
+        if(age == null){
+            return null;
+        }
+        return age >= 18 ? true : false;
     }
 
     /**
@@ -64,7 +67,7 @@ public with sharing class FlowControlLoopsCollections {
         if(num1 == null || num2 == null){
             return null;
         } else if(num1 == num2){
-            return largestNum = num1;
+            return num1;
         } else {
             return largestNum = Math.max(num1, num2);
         }
@@ -208,16 +211,13 @@ public with sharing class FlowControlLoopsCollections {
         if(inputString == null || repeatCount == null || repeatCount <= 0){
             return null;
         } else {
-            for(Integer i=0; i<=(repeatCount-1); i++){
-                if(i == (repeatCount-1)){
-                    resultStr = resultStr + inputString;
-                    break;
-                } else {
-                    resultStr = resultStr + inputString + '; ';
-
-                }
+            for(Integer i = 0; i < repeatCount; i++){
+                if(i > 0){
+                    resultStr += '; ';
             }
-        }   
+            resultStr += inputString;
+            }
+        }
         // Return the final result string
         return resultStr;
     }
@@ -286,12 +286,7 @@ public with sharing class FlowControlLoopsCollections {
      */
     public static Set<String> createStringSet(List<String> inputList) {
         // Create a new Set of strings
-        Set<String> stringSet = new Set<String>();
-
-        //add strings to the set
-        for(String s : inputList){
-            stringSet.add(s);
-        }
+        Set<String> stringSet = new Set<String>(inputList);
 
         return stringSet;
     }
@@ -309,9 +304,8 @@ public with sharing class FlowControlLoopsCollections {
         for(Integer i : numbers){
             if(i<0){
                 continue;
-            } else {
-                sum = sum + i;
             }
+            sum = sum + i;
         }
         return sum;
     }
